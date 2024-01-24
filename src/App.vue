@@ -27,8 +27,14 @@ export default {
             }) 
             .then((response) => {
                 console.log('ARRAY DEI FILM: ',response.data.results);
-                this.store.films.push(response.data.results);
-                console.log(this.store.films[1]);
+
+                // Creo un ciclo per ogni singolo oggetto FIlm all'interno dell'oggetto principale
+                for (let i = 0; i < response.data.results.length; i++) {
+
+                    this.store.films.push(response.data.results[i]);
+                    console.log('ARRAY DEI FILM: ', this.store.films);
+
+                }
             });
             // Richiamo l'API per cercare le Serie TV
             axios
@@ -40,6 +46,12 @@ export default {
             })
             .then((response) => {
                 console.log('ARRAY DELLE SERIE: ', response.data.results);
+
+                for (let i = 0; i < response.data.results.length; i++) {
+                    this.store.tvSeries.push(response.data.results[i]);
+                    console.log('ARRAY DELLE SERIE: ', this.store.tvSeries);
+                }
+
             });
 
             // Svuola la variabile ogni volta che ho richiamato l'API

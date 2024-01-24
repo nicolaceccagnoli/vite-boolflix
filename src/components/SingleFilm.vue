@@ -11,14 +11,13 @@ import { store } from '../store';
 
         }, 
         props: {
-            film: Array
+            film: Object
         }
 
     }
 </script>
 
 <template>
-    <main>
         <div class="film-info">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
@@ -37,8 +36,8 @@ import { store } from '../store';
                 </div>
             </div>            
         </div>
-    </main>
 </template>
 
 <style lang="scss" scoped>
+
 </style>
