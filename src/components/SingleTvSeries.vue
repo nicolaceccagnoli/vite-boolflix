@@ -18,7 +18,11 @@ import { store } from '../store';
                 if (this.series.original_language == 'JA') {
                     this.series.original_language = 'JP';
                 }
+            },
+            getAverageVote(x) {
+                return Math.ceil(x / 2);
             }
+
         }, 
         props: {
             series: Object
@@ -54,7 +58,13 @@ import { store } from '../store';
                     </div>
 
                     <p class="series-card-vote">
-                        Voto: {{ series.vote_average }}
+                        <i v-for="(elem, i) in 5"
+                        :key="i"
+                        :class="{
+                            'fa-solid' : getAverageVote(series.vote_average) >= i,
+                            'fa-regular' : getAverageVote(series.vote_average) < i
+                        }"
+                        class="fa-star"></i>
                     </p>
                 </div>
             </div>            

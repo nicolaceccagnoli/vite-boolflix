@@ -18,13 +18,18 @@ import { store } from '../store';
                 if (this.film.original_language == 'JA') {
                     this.film.original_language = 'JP';
                 }
+            },
+            getAverageVote(x) {
+                return Math.ceil(x / 2);
             }
+
         }, 
         props: {
             film: Object,
         },
         mounted() {
             this.langFlagControl();
+            this.getAverageVote();
         }  
 
     }
@@ -51,11 +56,17 @@ import { store } from '../store';
                         <img
                         class="lang-flag border"
                         :src="'https://flagsapi.com/' + film.original_language + '/flat/64.png'" :alt="film.original_language">
-
                     </div>
 
                     <p class="film-card-vote">
-                        Voto: {{ film.vote_average }}
+                        <!-- Voto: {{ getAverageVote() }} -->
+                        <i v-for="(elem, i) in 5"
+                        :key="i" 
+                        :class="{
+                            'fa-solid' : getAverageVote(film.vote_average) >= i,
+                            'fa-regular' : getAverageVote(film.vote_average) < i
+                        }"
+                        class="fa-star"></i>
                     </p>
                 </div>
             </div>            
