@@ -12,5 +12,4 @@ export const store = reactive ({
     films: [],
     // Creo un Array vuoto dove pushero le Serie TV
     tvSeries: [],
-
 })

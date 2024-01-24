@@ -48,7 +48,7 @@ export default {
             .get(this.store.baseTvSeriesUrl, {
                 // Passo i valori che voglio dare ai parametri dell'Api
                 params: {
-                    query: this.store.searchFilm.length > 0 ? this.store.searchFilm : null
+                    query: this.store.searchFilm.length > 0 ? this.store.searchFilm : null,
                 }
             })
             .then((response) => {

@@ -22,19 +22,26 @@ import { store } from '../store';
 
 <template>
     <main>
-        <div class="container d-flex flex-wrap justify-content-around">
+        <div class="container p-2">
 
-            <SingleFilms v-for="(film, i) in store.films"
-            :key="i" 
-            :film="film"/>
+            <div class="row">
+                <SingleFilms
+                class="col-6 col-md-4"
+                v-for="(film, i) in store.films"
+                :key="i" 
+                :film="film"/>
 
-            <SingleTvSeries v-for="(series, i) in store.tvSeries"
-            :key="i"
-            :series="series" />
+                <SingleTvSeries
+                class="col-6 col-md-4"
+                v-for="(series, i) in store.tvSeries"
+                :key="i"
+                :series="series" />
+            </div>
 
         </div>
     </main>
 </template>
 
 <style lang="scss" scoped>
+
 </style>
