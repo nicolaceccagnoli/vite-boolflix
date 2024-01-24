@@ -26,6 +26,8 @@ import { store } from '../store';
         }, 
         props: {
             film: Object,
+            name: String,
+            originalName: String
         },
         mounted() {
             this.langFlagControl();
@@ -44,11 +46,11 @@ import { store } from '../store';
                 :alt="film.title">
                 <div class="film-card-body">
                     <h5 class="card-title mb-2">
-                        Titolo: {{ film.title }}
+                        Titolo: {{ name }}
                     </h5>
                     
                     <p class="film-card-text mb-3">
-                        Titolo Originale: {{ film.original_title }}
+                        Titolo Originale: {{ originalName }}
                     </p>
 
                     <div class="mb-3">

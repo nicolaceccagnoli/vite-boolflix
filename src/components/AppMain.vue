@@ -1,6 +1,5 @@
 <script >
 import SingleFilms from './SingleFilm.vue';
-import SingleTvSeries from './SingleTvSeries.vue';
 import { store } from '../store';
 
     export default {
@@ -14,7 +13,6 @@ import { store } from '../store';
         },
         components: {
             SingleFilms,
-            SingleTvSeries
         }
 
     }
@@ -29,13 +27,20 @@ import { store } from '../store';
                 class="col-6 col-md-4"
                 v-for="(film, i) in store.films"
                 :key="i" 
-                :film="film"/>
+                :film="film"
+                :name="film.title"
+                :originalName="film.original_title"
+                />
 
-                <SingleTvSeries
+                <SingleFilms
                 class="col-6 col-md-4"
-                v-for="(series, i) in store.tvSeries"
-                :key="i"
-                :series="series" />
+                v-for="(film, i) in store.tvSeries"
+                :key="i" 
+                :film="film"
+                :name="film.name"
+                :originalName="film.original_name"
+                />
+
             </div>
 
         </div>
