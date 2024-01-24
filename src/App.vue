@@ -32,7 +32,7 @@ export default {
                 for (let i = 0; i < response.data.results.length; i++) {
 
                     this.store.films.push(response.data.results[i]);
-                    console.log('ARRAY DEI FILM: ', this.store.films);
+                    console.log(this.store.films);
 
                 }
             });
@@ -49,13 +49,17 @@ export default {
 
                 for (let i = 0; i < response.data.results.length; i++) {
                     this.store.tvSeries.push(response.data.results[i]);
-                    console.log('ARRAY DELLE SERIE: ', this.store.tvSeries);
+                    console.log(this.store.tvSeries);
                 }
 
             });
 
             // Svuola la variabile ogni volta che ho richiamato l'API
             this.store.searchFilm = '';
+
+            this.store.films = [];
+
+            this.store.tvSeries = [];
         }
     },
     created() {

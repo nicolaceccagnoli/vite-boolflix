@@ -9,19 +9,19 @@ import { store } from '../store';
         },
         methods: {
             langFlagControl() {
-                this.film.original_language = this.film.original_language.toUpperCase();
+                this.series.original_language = this.series.original_language.toUpperCase();
 
-                if (this.film.original_language == 'EN') {
-                    this.film.original_language = 'GB';
+                if (this.series.original_language == 'EN') {
+                    this.series.original_language = 'GB';
                 }
 
-                if (this.film.original_language == 'JA') {
-                    this.film.original_language = 'JP';
+                if (this.series.original_language == 'JA') {
+                    this.series.original_language = 'JP';
                 }
             }
         }, 
         props: {
-            film: Object
+            series: Object
         },
         mounted() {
             this.langFlagControl();
@@ -35,19 +35,19 @@ import { store } from '../store';
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">
-                        {{ film.title }}
+                        {{ series.name }}
                     </h5>
                     
                     <p class="card-text">
-                        {{ film.original_title }}
+                        {{ series.original_name }}
                     </p>
 
                     <img
                     class=" border"
-                    :src="'https://flagsapi.com/' + film.original_language + '/flat/64.png'" :alt="film.original_language">
+                    :src="'https://flagsapi.com/' + series.original_language + '/flat/64.png'" :alt="series.original_language">
 
                     <p class="card-text">
-                        {{ film.vote_average }}
+                        {{ series.vote_average }}
                     </p>
                 </div>
             </div>            
