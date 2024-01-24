@@ -1,12 +1,18 @@
 <script >
+import SingleFilms from './SingleFilm.vue';
+import { store } from '../store';
+
     export default {
         data() {
             return {
-
+                store
             };
         },
         methods: {
 
+        },
+        components: {
+            SingleFilms
         }
 
     }
@@ -14,7 +20,13 @@
 
 <template>
     <main>
-        MAIN
+        <div class="container">
+
+            <SingleFilms v-for="(film, i) in store.films"
+            :key="i" 
+            :film="film"/>
+
+        </div>
     </main>
 </template>
 
