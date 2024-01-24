@@ -20,11 +20,11 @@ import { store } from '../store';
 
 <template>
     <main>
-        <div class="container p-2">
+        <div class="container-fluid p-2">
 
             <div class="row">
                 <SingleFilms
-                class="col-6 col-md-4"
+                class="col-6 col-md-2"
                 v-for="(film, i) in store.films"
                 :key="i" 
                 :film="film"
@@ -33,14 +33,13 @@ import { store } from '../store';
                 />
 
                 <SingleFilms
-                class="col-6 col-md-4"
+                class="col-6 col-md-2"
                 v-for="(film, i) in store.tvSeries"
                 :key="i" 
                 :film="film"
                 :name="film.name"
                 :originalName="film.original_name"
                 />
-
             </div>
 
         </div>

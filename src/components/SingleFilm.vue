@@ -38,59 +38,85 @@ import { store } from '../store';
 </script>
 
 <template>
-        <div class="film-info mb-2 col-2 g-0">
+
+        <!-- Qui Inizia il contenitore delle Card del Film o Serie TV -->
+        <div class="film-info mb-2">
+            <!-- Qui inizia il contenuto delle Card -->
             <div class="film-card">
                 <img
                 class="film-img"
                 :src="'https://image.tmdb.org/t/p/w342' + film.poster_path"
                 :alt="film.title">
+                <!-- Qui iniziano le info delle Card -->
                 <div class="film-card-body">
-                    <h5 class="card-title mb-2">
-                        Titolo: {{ name }}
-                    </h5>
-                    
-                    <p class="film-card-text mb-3">
-                        Titolo Originale: {{ originalName }}
-                    </p>
-
-                    <div class="mb-3">
-                        Lingua: 
-                        <img
-                        class="lang-flag border"
-                        :src="'https://flagsapi.com/' + film.original_language + '/flat/64.png'" :alt="film.original_language">
-                    </div>
-
-                    <p class="film-card-vote">
-                        <!-- Voto: {{ getAverageVote() }} -->
-                        <i v-for="(elem, i) in 5"
-                        :key="i" 
-                        :class="{
+                    <ul>
+                        <li>
+                            <h5 class="card-title mb-2">
+                            Titolo: {{ name }}
+                            </h5>
+                        </li>
+                        <li>
+                            Titolo Originale: {{ originalName }}
+                        </li>
+                        <li>
+                            Lingua: 
+                            <img
+                            class="lang-flag border"
+                            :src="'https://flagsapi.com/' + film.original_language + '/flat/64.png'" :alt="film.original_language">
+                        </li>
+                        <li>
+                            <i v-for="(elem, i) in 5"
+                            :key="i" 
+                            :class="{
                             'fa-solid' : getAverageVote(film.vote_average) >= i,
                             'fa-regular' : getAverageVote(film.vote_average) < i
-                        }"
-                        class="fa-star"></i>
-                    </p>
+                            }"
+                            class="fa-star"></i>
+                        </li>
+                        <li>
+                            {{ film.overview }}
+                        </li>
+                    </ul>                  
                 </div>
-            </div>            
+                <!-- Qui finiscono le info delle Card -->
+            </div> 
+            <!-- Qui finisce il contenuto delle Card -->
         </div>
+        <!-- Qui finisce il contenitore delle Card del Film o Serie TV -->
 </template>
 
 <style lang="scss" scoped>
-    .film-card {
+    .film-info {
         background-color: red;
-        height: 100vh;
-        width: 400px;
+        width: calc((100% / 5) - 40px);
+        margin: 10px 20px;
 
-        .film-img {
-            width: 100%;
-        }
+    
         .film-card {
-            height: 250px;
+            width: 100%;
+
+            .film-img {
+                width: 100%;
+                object-fit: cover;
+            }
+
+            .film-card-body {
+
+            ul {
+                list-style: none;
+
+                li {
+                    margin-bottom: 10px
+                }
+            }
+            .lang-flag {
+                width: 50px;
+            }
+
+            }
+
         }
 
-        .lang-flag {
-            width: 50px;
-        }
     }
 
 </style>
