@@ -3,11 +3,12 @@ import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 import AppFooter from './components/AppFooter.vue';
 import axios from 'axios';
+import { store } from './store';
 
 export default {
     data() {
         return {
-
+            store
         };
     },
     components: {
@@ -17,23 +18,39 @@ export default {
     },
 
     methods: {
+        getApiCall() {
+            axios
+            .get(this.store.baseFilmUrl, {
+                params: {
+                    query: this.store.searchFilm.length > 0 ? this.store.searchFilm : null
+                }
+            }) 
+            .then((response) => {
+                console.log('ARRAY DEI FILM: ',response.data.results);
+                this.store.films.push(response.data.results);
+                console.log(this.store.films[1]);
+            });
+            axios
+            .get(this.store.baseTvSeriesUrl, {
+                params: {
+                    query: this.store.searchFilm.length > 0 ? this.store.searchFilm : null
+                }
+            })
+            .then((response) => {
+                console.log('ARRAY DELLE SERIE: ', response.data.results);
+            });
 
+            this.store.searchFilm = '';
+        }
     },
-    mounted() {
-        // axios.get().then((response) => {
-        //     console.log(response)
-        // });
+    created() {
+        this.getApiCall();
     }
-
 }
 </script>
 
 <template>
-    <h1>
-        Mia App
-    </h1>
-
-    <AppHeader />
+    <AppHeader @performSearch="getApiCall()" />
 
     <AppMain />
 
