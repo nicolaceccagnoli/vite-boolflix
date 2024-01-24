@@ -31,23 +31,28 @@ import { store } from '../store';
 </script>
 
 <template>
-        <div class="film-info">
-            <div class="card" style="width: 18rem;">
+        <div class="film-info mb-2">
+            <div class="card">
+                <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <div class="card-body">
-                    <h5 class="card-title">
-                        {{ film.title }}
+                    <h5 class="card-title mb-2">
+                        Titolo: {{ film.title }}
                     </h5>
                     
-                    <p class="card-text">
-                        {{ film.original_title }}
+                    <p class="card-text mb-3">
+                        Titolo Originale: {{ film.original_title }}
                     </p>
 
-                    <img
-                    class=" border"
-                    :src="'https://flagsapi.com/' + film.original_language + '/flat/64.png'" :alt="film.original_language">
+                    <div class="mb-3">
+                        Lingua: 
+                        <img
+                        class=" border"
+                        :src="'https://flagsapi.com/' + film.original_language + '/flat/64.png'" :alt="film.original_language">
+
+                    </div>
 
                     <p class="card-text">
-                        {{ film.vote_average }}
+                        Voto: {{ film.vote_average }}
                     </p>
                 </div>
             </div>            
@@ -55,5 +60,15 @@ import { store } from '../store';
 </template>
 
 <style lang="scss" scoped>
+    .film-info {
+        .card {
+            width: 400px;
+            height: 250px;
+        }
+        
+        img {
+            width: 50px;
+        }
+    }
 
 </style>

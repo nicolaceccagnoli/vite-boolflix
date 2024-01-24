@@ -35,7 +35,14 @@ export default {
                     console.log(this.store.films);
 
                 }
-            });
+            })
+            .catch((error) => {
+                this.store.films = [];
+            })
+            .finally(() => {
+                console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
+            })
+            ;
             // Richiamo l'API per cercare le Serie TV
             axios
             .get(this.store.baseTvSeriesUrl, {
@@ -52,7 +59,14 @@ export default {
                     console.log(this.store.tvSeries);
                 }
 
-            });
+            })
+            .catch((error) => {
+                this.store.tvSeries = [];
+            })
+            .finally(() => {
+                console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
+            })
+;
 
             // Svuola la variabile ogni volta che ho richiamato l'API
             this.store.searchFilm = '';

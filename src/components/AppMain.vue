@@ -22,7 +22,7 @@ import { store } from '../store';
 
 <template>
     <main>
-        <div class="container">
+        <div class="container d-flex flex-wrap justify-content-around">
 
             <SingleFilms v-for="(film, i) in store.films"
             :key="i" 
