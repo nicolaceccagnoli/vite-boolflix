@@ -136,10 +136,14 @@ import axios from 'axios';
                                 class="fa-star"></i>
                             </li>
                         </div>
-                        <div v-for="(name, i) in credits"
-                        :key="i">
-                            {{ name }}
-                        </div>                 
+                        <div>
+                            <ul>
+                                <li v-for="(name, i) in credits"
+                                :key="i">
+                                    {{ name }}
+                                </li>
+                            </ul>                 
+                        </div>
                     </ul> 
                 </div>
                 <!-- Qui finiscono le info delle Card -->
@@ -194,23 +198,8 @@ import axios from 'axios';
                     width: $lang-flag-width;
                     }
                 }
-
-                ::-webkit-scrollbar {
-                    width: 10px;
-                }
-
-                ::-webkit-scrollbar-thumb {
-                    background-color: $scrollbar-thumb-bg;
-                }
-
-                ::-webkit-scrollbar-track {
-                    background-color: $scrollbar-track-bg;
-                }
-
             }
-
         }
-
     }
 
     .film-info:hover {
