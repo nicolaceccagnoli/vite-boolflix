@@ -17,67 +17,95 @@ export default {
 
     methods: {
         getApiCall() {
-            // Richiamo l'API per cercare i film
-            axios
-            .get(this.store.baseFilmUrl, {
-                // Passo i valori che voglio dare ai parametri dell'Api
-                params: {
-                    query: this.store.searchFilm.length > 0 ? this.store.searchFilm : null
-                }
-            }) 
-            .then((response) => {
-                console.log('ARRAY DEI FILM: ',response.data.results);
+            
+            if (this.store.searchFilm.trim()) {
+                // Richiamo l'API per cercare i film
+                axios
+                .get(this.store.baseFilmUrl, {
+                    // Passo i valori che voglio dare ai parametri dell'Api
+                    params: {
+                        query: this.store.searchFilm.length > 0 ? this.store.searchFilm : null
+                    }
+                }) 
+                .then((response) => {
+                    console.log('ARRAY DEI FILM: ',response.data.results);
 
-                // Creo un ciclo per ogni singolo oggetto FIlm all'interno dell'oggetto principale
-                for (let i = 0; i < response.data.results.length; i++) {
+                    // Creo un ciclo per ogni singolo oggetto Film all'interno dell'oggetto principale
+                    for (let i = 0; i < response.data.results.length; i++) {
 
-                    this.store.films.push(response.data.results[i]);
-                    console.log(this.store.films);
+                        this.store.films.push(response.data.results[i]);
+                        console.log(this.store.films);
 
-                }
-            })
-            .catch((error) => {
+                    }
+                })
+                .catch((error) => {
+                    this.store.films = [];
+                })
+                .finally(() => {
+                    console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
+                })
+                ;
+                // Richiamo l'API per cercare le Serie TV
+                axios
+                .get(this.store.baseTvSeriesUrl, {
+                    // Passo i valori che voglio dare ai parametri dell'Api
+                    params: {
+                        query: this.store.searchFilm.length > 0 ? this.store.searchFilm : null,
+                    }
+                })
+                .then((response) => {
+                    console.log('ARRAY DELLE SERIE: ', response.data.results);
+
+                    // Creo un ciclo per ogni singolo oggetto Serie all'interno dell'oggetto principale
+                    for (let i = 0; i < response.data.results.length; i++) {
+                        this.store.tvSeries.push(response.data.results[i]);
+                        console.log(this.store.tvSeries);
+                    }
+
+                })
+                .catch((error) => {
+                    this.store.tvSeries = [];
+                })
+                .finally(() => {
+                    console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
+                });
+
+                // Svuola la variabile ogni volta che ho richiamato l'API
+                this.store.searchFilm = '';
+
                 this.store.films = [];
-            })
-            .finally(() => {
-                console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
-            })
-            ;
-            // Richiamo l'API per cercare le Serie TV
+
+                this.store.tvSeries = [];
+
+                this.store.trends = [];
+            }
+
+            },
+
+        trendApiCall() {
+            // Richiamo l'API per cercare i trend
             axios
-            .get(this.store.baseTvSeriesUrl, {
-                // Passo i valori che voglio dare ai parametri dell'Api
-                params: {
-                    query: this.store.searchFilm.length > 0 ? this.store.searchFilm : null,
-                }
-            })
+            .get(this.store.baseTrendUrl)
             .then((response) => {
-                console.log('ARRAY DELLE SERIE: ', response.data.results);
-
+                console.log(response.data.results);
                 for (let i = 0; i < response.data.results.length; i++) {
-                    this.store.tvSeries.push(response.data.results[i]);
-                    console.log(this.store.tvSeries);
+                    // Creo un ciclo per ogni singolo oggetto Trend all'interno dell'oggetto principale
+                    this.store.trends.push(response.data.results[i]);
                 }
-
+                console.log('Questi sono i trend: ', this.store.trends);
             })
             .catch((error) => {
-                this.store.tvSeries = [];
+                this.store.trends = [];
             })
             .finally(() => {
                 console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
             })
-;
 
-            // Svuola la variabile ogni volta che ho richiamato l'API
-            this.store.searchFilm = '';
-
-            this.store.films = [];
-
-            this.store.tvSeries = [];
         }
     },
     created() {
         this.getApiCall();
+        this.trendApiCall();
     }
 }
 </script>

@@ -30,6 +30,10 @@ import { store } from '../store';
                 if (this.film.original_language == 'HI') {
                     this.film.original_language = 'IN';
                 }
+            
+                if (this.film.original_language == 'ZH') {
+                    this.film.original_language = 'CN';
+                }
 
 
 
@@ -124,7 +128,6 @@ import { store } from '../store';
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                object-position: top center;
             }
             .film-card-body {
                 position: absolute;
@@ -183,7 +186,7 @@ import { store } from '../store';
     .film-info:hover {
         box-shadow: 0px -1px 17px 28px #000000;
         transform:rotateY(-360deg);
-        transition: transform 1.5s;
+        transition: transform 1.2s;
     }
 
     .film-card:hover .film-card-body {
