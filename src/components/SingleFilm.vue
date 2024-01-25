@@ -116,43 +116,38 @@ import { store } from '../store';
 </template>
 
 <style lang="scss" scoped>
+@import '../assets/scss/partials/variables.scss';
+@import '../assets/scss/partials/mixins.scss';
+
     .film-info {
-        margin: 10px 20px;
+        margin: $film-info-margin;
         cursor: pointer;
         .film-card {
-            width: 100%;
+            @include film-card;
             position: relative;
-            height: 450px;
 
             .film-img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
+                @include film-img;
             }
             .film-card-body {
+                @include film-card-body;
                 position: absolute;
                 top: 0;
-                width: 100%;
-                height: 100%;
-                display: none;
 
                 ul {
-                    list-style: none;
-                    background-color: rgba(0, 0, 0, 0.76);
-                    color: white;
-                    padding: 10px;
-                    height: 100%;
+                    @include ul;
+                    background-color: $list-bg-color;
 
                     li {
                         margin-bottom: 10px;
 
                         > i {
-                            color: gold;
+                            color: $stars-color;
                         }
                     }
 
                     .list-overview {
-                        height: calc(100% - 320px);
+                        height: $list-overview-height;
                         overflow: auto;
                     }
 
@@ -161,7 +156,7 @@ import { store } from '../store';
                         bottom: 0;
                     } 
                     .lang-flag {
-                    width: 50px;
+                    width: $lang-flag-width;
                     }
                 }
 
@@ -170,11 +165,11 @@ import { store } from '../store';
                 }
 
                 ::-webkit-scrollbar-thumb {
-                    background-color: #6c757d;
+                    background-color: $scrollbar-thumb-bg;
                 }
 
                 ::-webkit-scrollbar-track {
-                    background-color: #343a40;
+                    background-color: $scrollbar-track-bg;
                 }
 
             }
@@ -184,9 +179,7 @@ import { store } from '../store';
     }
 
     .film-info:hover {
-        box-shadow: 0px -1px 17px 28px #000000;
-        transform:rotateY(-360deg);
-        transition: transform 1.2s;
+        @include film-info-hover;
     }
 
     .film-card:hover .film-card-body {

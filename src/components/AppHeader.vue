@@ -53,14 +53,17 @@ import { store } from '../store';
 </template>
 
 <style lang="scss" scoped>
+@import '../assets/scss/partials/variables.scss';
+@import '../assets/scss/partials/mixins.scss';
+
 header {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background-color: black;
+
+    @include header;
+
+    background-color: $header-bg-color;
 
     #logo img {
-        max-width: 100px;
+        width: $logo-width;
     }
 
 }

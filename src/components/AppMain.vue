@@ -60,10 +60,11 @@ import { store } from '../store';
 </template>
 
 <style lang="scss" scoped>
+@import '../assets/scss/partials/variables.scss';
 
 main {
     height: 100%;
-    background-color: #141414;
+    background-color: $main-bg-color;
 }
 
 </style>
