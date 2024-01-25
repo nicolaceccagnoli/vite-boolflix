@@ -21,7 +21,7 @@ $main-bg-color: #141414;
     SINGLE FILMS
 
 */
-
+$film-info-width: calc((100% / 4) - 40px);
 $film-info-margin: 10px 20px;
 $list-bg-color: rgba(0, 0, 0, 0.76);
 $list-overview-height: calc(100% - 320px);

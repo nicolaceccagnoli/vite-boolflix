@@ -32,11 +32,10 @@ export default {
 
                     // Creo un ciclo per ogni singolo oggetto Film all'interno dell'oggetto principale
                     for (let i = 0; i < response.data.results.length; i++) {
-
-                        this.store.films.push(response.data.results[i]);
-                        console.log(this.store.films);
-
+                        this.store.films = response.data.results;
                     }
+                    console.log(this.store.films);
+
                 })
                 .catch((error) => {
                     this.store.films = [];
@@ -58,9 +57,9 @@ export default {
 
                     // Creo un ciclo per ogni singolo oggetto Serie all'interno dell'oggetto principale
                     for (let i = 0; i < response.data.results.length; i++) {
-                        this.store.tvSeries.push(response.data.results[i]);
-                        console.log(this.store.tvSeries);
+                        this.store.tvSeries = response.data.results;
                     }
+                    console.log(this.store.tvSeries);
 
                 })
                 .catch((error) => {
@@ -69,6 +68,11 @@ export default {
                 .finally(() => {
                     console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
                 });
+
+                for (let j = 0; j < this.store.trends.length; j++) {
+                    let finalUrl = 'https://api.themoviedb.org/3/movie/' + this.store.tvSeries[j].id + '/credits?api_key=82426cbd7a1ce54b563c262757bd3dc3';
+                }
+                console.log('Questa è la chiamata ai CREDITS: ', finalUrl);
 
                 // Svuola la variabile ogni volta che ho richiamato l'API
                 this.store.searchFilm = '';
@@ -90,16 +94,28 @@ export default {
                 console.log(response.data.results);
                 for (let i = 0; i < response.data.results.length; i++) {
                     // Creo un ciclo per ogni singolo oggetto Trend all'interno dell'oggetto principale
-                    this.store.trends.push(response.data.results[i]);
+                    this.store.trends = response.data.results;
                 }
                 console.log('Questi sono i trend: ', this.store.trends);
+
+                // for (let j = 0; j < this.store.trends.length; j++) {
+                // let finalUrl = 'https://api.themoviedb.org/3/movie/' + this.store.trends[j].id + '/credits?api_key=82426cbd7a1ce54b563c262757bd3dc3';
+                //     console.log('Questa è la chiamata ai CREDITS: ', finalUrl);
+                // }
+
             })
             .catch((error) => {
                 this.store.trends = [];
             })
             .finally(() => {
                 console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
-            })
+            });
+
+
+
+            // axios
+            // .get(this.store.baseCreditMovieUrl)
+
 
         }
     },

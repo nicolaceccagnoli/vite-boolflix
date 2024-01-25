@@ -120,6 +120,7 @@ import { store } from '../store';
 @import '../assets/scss/partials/mixins.scss';
 
     .film-info {
+        width: $film-info-width;
         margin: $film-info-margin;
         cursor: pointer;
         .film-card {

@@ -25,7 +25,7 @@ import { store } from '../store';
             <div class="row flex-wrap justify-content-center">
 
                 <SingleFilms
-                class="col-6 col-sm-4 col-md-2"
+                class="col-md-2"
                 v-for="(film, i) in store.trends"
                 :key="i" 
                 :film="film"
@@ -35,7 +35,7 @@ import { store } from '../store';
                 />
 
                 <SingleFilms
-                class="col-6 col-sm-4 col-md-2"
+                class="col-md-2"
                 v-for="(film, i) in store.films"
                 :key="i" 
                 :film="film"
@@ -45,7 +45,7 @@ import { store } from '../store';
                 />
 
                 <SingleFilms
-                class="col-6 col-sm-4 col-md-2"
+                class="col-md-2"
                 v-for="(film, i) in store.tvSeries"
                 :key="i" 
                 :film="film"
