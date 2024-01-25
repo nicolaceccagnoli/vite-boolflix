@@ -8,7 +8,6 @@ import { store } from '../store';
             };
         },
         methods: {
-
         },
         components: {
         },
@@ -18,7 +17,7 @@ import { store } from '../store';
 
 <template>
     <header>
-        <div class="p-2 row">
+        <div class="p-2 row g-0 align-items-center ">
 
             <div class="col-auto me-auto" id="logo">
                 <img src="/public/netflix_logo.svg.png" alt="Netflix Logo">
@@ -44,11 +43,13 @@ import { store } from '../store';
 
 <style lang="scss" scoped>
 header {
-
+    position: sticky;
+    top: 0;
+    z-index: 1;
     background-color: black;
 
     #logo img {
-        max-width: 150px;
+        max-width: 100px;
     }
 }
 </style>

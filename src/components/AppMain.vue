@@ -22,18 +22,19 @@ import { store } from '../store';
     <main>
         <div class="container-fluid p-2">
 
-            <div class="row">
+            <div class="row flex-wrap justify-content-center">
                 <SingleFilms
-                class="col-6 col-md-2"
+                class="col-6 col-sm-4 col-md-2"
                 v-for="(film, i) in store.films"
                 :key="i" 
                 :film="film"
+                :poster="film.poster_path"
                 :name="film.title"
                 :originalName="film.original_title"
                 />
 
                 <SingleFilms
-                class="col-6 col-md-2"
+                class="col-6 col-sm-4 col-md-2 justify-content-center"
                 v-for="(film, i) in store.tvSeries"
                 :key="i" 
                 :film="film"
@@ -47,5 +48,10 @@ import { store } from '../store';
 </template>
 
 <style lang="scss" scoped>
+
+main {
+    height: 100%;
+    background-color: #141414;
+}
 
 </style>
