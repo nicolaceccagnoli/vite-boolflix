@@ -32,6 +32,7 @@ import { store } from '../store';
                 :poster="film.poster_path"
                 :name="film.title"
                 :originalName="film.original_title"
+                :gender="'movie'"
                 />
 
                 <SingleFilms
@@ -42,6 +43,7 @@ import { store } from '../store';
                 :poster="film.poster_path"
                 :name="film.title"
                 :originalName="film.original_title"
+                :gender="'movie'"
                 />
 
                 <SingleFilms
@@ -51,6 +53,7 @@ import { store } from '../store';
                 :film="film"
                 :name="film.name"
                 :originalName="film.original_name"
+                :gender="'tv'"
                 />
                 
             </div>

@@ -17,5 +17,5 @@ export const store = reactive ({
     // Creo un Array vuoto dove pushero le Serie TV
     tvSeries: [],
     // Creo un Array vuoto dove pushare i trend
-    trends: []
+    trends: [],
 })

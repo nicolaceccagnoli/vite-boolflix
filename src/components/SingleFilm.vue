@@ -1,10 +1,14 @@
 <script >
 import { store } from '../store';
+import axios from 'axios';
 
     export default {
         data() {
             return {
-                store
+                store,
+                // Creo un Array per i Credits
+                credits: []
+
             };
         },
         methods: {
@@ -35,18 +39,44 @@ import { store } from '../store';
                     this.film.original_language = 'CN';
                 }
 
-
-
             },
             getAverageVote(x) {
                 return Math.ceil(x / 2);
+            },
+
+            getCreditsApi() {
+
+                this.credits = [];
+
+                axios.
+                get('https://api.themoviedb.org/3/' + this.gender + '/' + this.film.id + '/credits?api_key=82426cbd7a1ce54b563c262757bd3dc3')
+                .then((response) => {
+
+                    console.log(response.data.cast);
+
+                    for (let j = 0; j < 5; j++) {
+                        this.credits.push(response.data.cast[j].name);
+                    }
+
+                    console.log(this.credits);
+
+                })
+                .catch((error) => {
+                    this.credits = [];
+                })
+                .finally(() => {
+                    console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
+                });
+
             }
+
 
         }, 
         props: {
             film: Object,
             name: String,
             originalName: String,
+            gender: String
         },
         mounted() {
             this.langFlagControl();
@@ -61,7 +91,7 @@ import { store } from '../store';
 
 <template>
         <!-- Qui Inizia il contenitore delle Card del Film o Serie TV -->
-        <div class="film-info">
+        <div @click="getCreditsApi()" class="film-info">
             <!-- Qui inizia il contenuto delle Card -->
             <div class="film-card">
                 <img v-if="film.poster_path != null"
@@ -106,7 +136,11 @@ import { store } from '../store';
                                 class="fa-star"></i>
                             </li>
                         </div>
-                    </ul>                  
+                        <div v-for="(name, i) in credits"
+                        :key="i">
+                            {{ name }}
+                        </div>                 
+                    </ul> 
                 </div>
                 <!-- Qui finiscono le info delle Card -->
             </div> 

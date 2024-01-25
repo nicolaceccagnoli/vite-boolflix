@@ -60,7 +60,6 @@ export default {
                         this.store.tvSeries = response.data.results;
                     }
                     console.log(this.store.tvSeries);
-
                 })
                 .catch((error) => {
                     this.store.tvSeries = [];
@@ -68,11 +67,6 @@ export default {
                 .finally(() => {
                     console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
                 });
-
-                for (let j = 0; j < this.store.trends.length; j++) {
-                    let finalUrl = 'https://api.themoviedb.org/3/movie/' + this.store.tvSeries[j].id + '/credits?api_key=82426cbd7a1ce54b563c262757bd3dc3';
-                }
-                console.log('Questa è la chiamata ai CREDITS: ', finalUrl);
 
                 // Svuola la variabile ogni volta che ho richiamato l'API
                 this.store.searchFilm = '';
@@ -110,8 +104,6 @@ export default {
             .finally(() => {
                 console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
             });
-
-
 
             // axios
             // .get(this.store.baseCreditMovieUrl)
