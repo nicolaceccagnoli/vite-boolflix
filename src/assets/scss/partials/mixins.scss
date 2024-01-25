@@ -45,14 +45,15 @@
 @mixin film-info-hover {
     box-shadow: 0px -1px 17px 28px #000000;
     transform:rotateY(-360deg);
-    animation: rotate360 2s linear;
+    animation: rotate360 2s ease-in-out;
 
     @keyframes rotate360 {
         0% {
           transform: rotateY(0deg);
         }
+
         100% {
-          transform: rotateY(360deg);
+            transform: rotateY(360deg);
         }
       }
 }
