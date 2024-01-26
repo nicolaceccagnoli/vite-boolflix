@@ -8,6 +8,8 @@ import axios from 'axios';
                 store,
                 // Creo un Array per i Credits
                 credits: [],
+                // Creo un Array per i Generi
+                genresIds: [],
                 // Creo una Flag per i Credits
                 showCredits: false
 
@@ -49,6 +51,8 @@ import axios from 'axios';
 
                 this.credits = [];
 
+                this.genresIds = [];
+
                 axios.
                 get('https://api.themoviedb.org/3/' + this.gender + '/' + this.film.id + '/credits?api_key=82426cbd7a1ce54b563c262757bd3dc3')
                 .then((response) => {
@@ -58,14 +62,7 @@ import axios from 'axios';
                     for (let j = 0; j < 5; j++) {
                         this.credits.push(response.data.cast[j].name);
 
-                        if (response.data.cast[j].length == 0) {
-                            console.log('QUI NON TROVO IL CAST')
-                            // response.data.cast[j].name = 'Cast Non Disponibile';
-                            // this.credits.push(response.data.cast[j].name);
-                        }
-
                     }
-
 
                     console.log('Questi sono i CREDITS: ',this.credits);
 
@@ -78,6 +75,20 @@ import axios from 'axios';
                     console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
                 });
 
+                axios
+                .get('https://api.themoviedb.org/3/' + this.gender + '/' + this.film.id + '?api_key=82426cbd7a1ce54b563c262757bd3dc3')
+                .then((response) => {
+                    console.log('Questa è LA RISPOSTA DEL CAZZO : ',response.data.genres);
+
+                    for (let y = 0; y < response.data.genres.length; y++) {
+
+                        this.genresIds.push(response.data.genres[y].name);
+
+                    }
+
+                    console.log('Questa è LA RISPOSTA DEL DIO : ', this.genresIds);
+                })
+
                 this.showCredits = true
 
             }
@@ -88,7 +99,8 @@ import axios from 'axios';
             film: Object,
             name: String,
             originalName: String,
-            gender: String
+            gender: String,
+            filmGenres: String
         },
         mounted() {
             this.langFlagControl();
@@ -126,9 +138,11 @@ import axios from 'axios';
                             </h6>
                         </li>
                         <li v-if="showCredits == false" class="list-overview mb-1">
+                            Trama:
                             <p>
                                 {{ film.overview }}
                             </p>
+
                         </li>
                         <button 
                         class="btn btn-outline-secondary"
@@ -136,7 +150,7 @@ import axios from 'axios';
                         @click="getCreditsApi()"
                         href="#nogo">
                             <i class="fa-solid fa-circle-chevron-down">
-                                Show Cast
+                                Show More Info
                             </i>
                         </button>
                         <div
@@ -146,7 +160,14 @@ import axios from 'axios';
                             <li
                             v-for="(name, i) in credits"
                             :key="i">
-                                    {{ name }}
+                                {{ name }}
+                            </li>
+                        Generi: 
+                            <li
+                            class="text-white"
+                            v-for="(singleGenre, i) in genresIds"
+                            :key="i">
+                                {{ singleGenre }}
                             </li>
                         </div>
                         <div class="vote-lang-info z-1">

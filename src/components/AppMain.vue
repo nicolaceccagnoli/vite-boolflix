@@ -44,7 +44,7 @@ import { store } from '../store';
                 :poster="film.poster_path"
                 :name="film.name"
                 :originalName="film.original_name"
-                :gender="'movie'"
+                :gender="'tv'"
                 />
 
             </div>
@@ -67,6 +67,7 @@ import { store } from '../store';
                 v-for="(film, i) in store.tvSeries"
                 :key="i" 
                 :film="film"
+                :poster="film.poster_path"
                 :name="film.name"
                 :originalName="film.original_name"
                 :gender="'tv'"
