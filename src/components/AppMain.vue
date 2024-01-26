@@ -5,16 +5,34 @@ import { store } from '../store';
     export default {
         data() {
             return {
-                store
+                store,
+                includeGenre: false
             };
         },
         methods: {
 
+            showCommonGenres() {
+
+                const commonGenres = this.store.genresTvAndFilm.some(genre => this.store.selectGenres.includes(genre));
+
+                if (commonGenres) {
+                    // Ci sono elementi in comune tra genresTvAndFilm e selectGenres
+                    this.includeGenre = true;
+                } 
+                // else {
+                    // Non ci sono elementi in comune
+                    // console.log("Non ci sono elementi in comune.");
+                // }
+
+                console.log('GENERI IN COMUNE', commonGenres);
+            }
         },
         components: {
             SingleFilms,
+        },
+        mounted() {
+            this.showCommonGenres();
         }
-
     }
 </script>
 
@@ -52,6 +70,7 @@ import { store } from '../store';
             <div class="row flex-wrap ">
 
                 <SingleFilms
+                v-show="this.includeGenre == false"
                 class="col-md-2"
                 v-for="(film, i) in store.films"
                 :key="i" 
@@ -63,6 +82,7 @@ import { store } from '../store';
                 />
 
                 <SingleFilms
+                v-show="this.includeGenre == false"
                 class="col-md-2"
                 v-for="(film, i) in store.tvSeries"
                 :key="i" 
