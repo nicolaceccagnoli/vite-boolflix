@@ -45,7 +45,6 @@ import axios from 'axios';
             getAverageVote(x) {
                 return Math.ceil(x / 2);
             },
-
             getCreditsApi() {
 
                 this.credits = [];
@@ -93,10 +92,9 @@ import axios from 'axios';
         },
         mounted() {
             this.langFlagControl();
-            this.getAverageVote();
         },
         computed: {
-            
+
         }
 
     }
@@ -213,8 +211,9 @@ import axios from 'axios';
                             color: $stars-color;
                         }
 
-                        h4, h6 {
+                        h4, h6, p{
                             color: white;
+                            margin-bottom: 10px;
                         }
 
                     }
