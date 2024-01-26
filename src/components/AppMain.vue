@@ -62,12 +62,6 @@ import { store } from '../store';
                 :gender="'movie'"
                 />
 
-                <div
-                class="text-white ms-2 h1">
-                    Serie TV:
-                </div>
-
-
                 <SingleFilms
                 class="col-md-2"
                 v-for="(film, i) in store.tvSeries"
