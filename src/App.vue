@@ -169,20 +169,20 @@ export default {
                 console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
             });
             
-
-        }
+        },
     },
     created() {
-        // Richiamo le Funzioni per le API dopo che l'istanza del componente è stata creata
+        // Richiamo le Funzioni per le API dopo che l'istanza del componente è stata create
         this.getApiCall();
         this.trendApiCall();
-        this.getGenresApiCall();
     }
 }
 </script>
 
+@searchGender="searchGender()" 
+
 <template>
-    <AppHeader @performSearch="getApiCall()" />
+    <AppHeader @performSearch="getApiCall()"/>
 
     <AppMain />
 </template>
