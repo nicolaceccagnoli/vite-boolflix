@@ -71,21 +71,24 @@ export default {
                 // Svuola la variabile ogni volta che ho richiamato l'API
                 this.store.searchFilm = '';
 
+                // Svuoto l'array dei film ogni volta che richiamo l'API
                 this.store.films = [];
 
+                // Svuoto l'array delle Serie TV ogni volta che richiamo l'API
                 this.store.tvSeries = [];
 
+                // Svuoto l'array dei Film in trend ogni volta che richiamo l'API
                 this.store.trendsTv = [];
 
+                // Svuoto l'array delle Serie TV in trend ogni volta che richiamo l'API
                 this.store.trendsFilm = [];
-
 
             }
 
             },
 
         trendApiCall() {
-            // Richiamo l'API per cercare i trend
+            // Richiamo l'API per cercare i trend dei Film
             axios
             .get(this.store.baseTrendFilmUrl)
             .then((response) => {
@@ -104,6 +107,7 @@ export default {
                 console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
             });
 
+            // Richiamo l'API per cercare i trend delle Serie TV
             axios
             .get(this.store.baseTrendTvUrl)
             .then((response) => {
@@ -114,11 +118,6 @@ export default {
                 }
                 console.log('Questi sono i trend: ', this.store.trends);
 
-                // for (let j = 0; j < this.store.trends.length; j++) {
-                // let finalUrl = 'https://api.themoviedb.org/3/movie/' + this.store.trends[j].id + '/credits?api_key=82426cbd7a1ce54b563c262757bd3dc3';
-                //     console.log('Questa è la chiamata ai CREDITS: ', finalUrl);
-                // }
-
             })
             .catch((error) => {
                 this.store.trendsTv = [];
@@ -126,12 +125,58 @@ export default {
             .finally(() => {
                 console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
             });
+        },
+        getGenresApiCall() {
+            // Richiamo l'API per cercare i generi dei Film
+            axios
+            .get(this.store.baseGenresFilmUrl)
+            .then((response) => {
+                console.log('Questa è la chiamata dei GENERI FILM: ',response.data.genres)
+                    // Creo un ciclo per ogni singolo oggetto Genere all'interno dell'oggetto principale
+                    for (let x = 0; x < response.data.genres.length; x++) {
+                    this.store.genresTvAndFilm.push(response.data.genres[x].name);
+                }
+                console.log('ARRAY DEI GENERI solo con i FILM: ', this.store.genresTvAndFilm);
+            })
+            .catch((error) => {
+                this.store.genresTvAndFilm = [];
+            })
+            .finally(() => {
+                console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
+            });
+
+            // Richiamo l'API per cercare i generi delle Serie TV
+            axios
+            .get(this.store.baseGenresTvUrl)
+            .then((response) => {
+                console.log('Questa è la chiamata dei GENERI SERIE TV: ',response.data.genres)
+                    // Creo un ciclo per ogni singolo oggetto Genere all'interno dell'oggetto principale
+                    for (let x = 0; x < response.data.genres.length; x++) {
+
+                        // Applico un controllo per cui se uno dei Generi è già presente nella lista allora non viene pushato
+                        if (!this.store.genresTvAndFilm.includes(response.data.genres[x].name)) {
+                            this.store.genresTvAndFilm.push(response.data.genres[x].name);
+                        }
+                    
+                }
+                console.log('ARRAY DEI GENERI solo con le SERIE TV: ', this.store.genresTvAndFilm);
+
+            })
+            .catch((error) => {
+                this.store.genresTv = [];
+            })
+            .finally(() => {
+                console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
+            });
+            
 
         }
     },
     created() {
+        // Richiamo le Funzioni per le API dopo che l'istanza del componente è stata creata
         this.getApiCall();
         this.trendApiCall();
+        this.getGenresApiCall();
     }
 }
 </script>

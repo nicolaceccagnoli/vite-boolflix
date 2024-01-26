@@ -16,6 +16,7 @@ import axios from 'axios';
             };
         },
         methods: {
+            // Creo una funzione che modifichi la stringa della lingua dei Film e Serie TV 
             langFlagControl() {
                 this.film.original_language = this.film.original_language.toUpperCase();
 
@@ -44,24 +45,28 @@ import axios from 'axios';
                 }
 
             },
+            // Creo una funzione per arrotondare il voto medio dei Film o Serie TV
             getAverageVote(x) {
                 return Math.ceil(x / 2);
             },
             getCreditsApi() {
 
+                // Svuoto l'Array degli Attori
                 this.credits = [];
 
+                // Svuoto l'Array dei Generi
                 this.genresIds = [];
 
+                // Richiamo le API per trovare gli Attori
                 axios.
                 get('https://api.themoviedb.org/3/' + this.gender + '/' + this.film.id + '/credits?api_key=82426cbd7a1ce54b563c262757bd3dc3')
                 .then((response) => {
 
                     console.log('Questo è il CONSOLE.LOG DEI DATI: ',response);
 
+                    // Creo un ciclo per pushare nell'Array degli Attori i primi 5 nomi resituiti dall'oggetto principale
                     for (let j = 0; j < 5; j++) {
                         this.credits.push(response.data.cast[j].name);
-
                     }
 
                     console.log('Questi sono i CREDITS: ',this.credits);
@@ -75,20 +80,28 @@ import axios from 'axios';
                     console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
                 });
 
+                // Richiamo le API per trovare i Generi
                 axios
                 .get('https://api.themoviedb.org/3/' + this.gender + '/' + this.film.id + '?api_key=82426cbd7a1ce54b563c262757bd3dc3')
                 .then((response) => {
-                    console.log('Questa è LA RISPOSTA DEL CAZZO : ',response.data.genres);
+                    console.log(response.data.genres);
 
+                    // Creo un ciclo per pushare nell'Array dei Generi quelli resituiti dall'oggetto principale
                     for (let y = 0; y < response.data.genres.length; y++) {
-
                         this.genresIds.push(response.data.genres[y].name);
-
                     }
 
-                    console.log('Questa è LA RISPOSTA DEL DIO : ', this.genresIds);
+                    console.log('Questi sono i generi: ', this.genresIds);
                 })
+                .catch((error) => {
+                    this.genresIds = [];
+                    this.genresIds.name = 'Generi non disponibili';
+                })
+                .finally(() => {
+                    console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
+                });
 
+                // Cambio il valore della Flag che gestisce la visualizzazione dell'Overview
                 this.showCredits = true
 
             }
@@ -103,6 +116,7 @@ import axios from 'axios';
             filmGenres: String
         },
         mounted() {
+            // Richiamo la funzione per le stringhe quando il componente viene montato
             this.langFlagControl();
         },
         computed: {
@@ -204,6 +218,7 @@ import axios from 'axios';
     .film-info {
         width: $film-info-width;
         margin: $film-info-margin;
+
         cursor: pointer;
         .film-card {
             @include film-card;
