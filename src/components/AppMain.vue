@@ -22,11 +22,12 @@ import { store } from '../store';
     <main>
         <div class="container-fluid p-2">
 
-            <div class="row flex-wrap justify-content-center">
+            <div 
+            class="row flex-wrap ">
 
                 <SingleFilms
                 class="col-md-2"
-                v-for="(film, i) in store.trends"
+                v-for="(film, i) in store.trendsFilm"
                 :key="i" 
                 :film="film"
                 :poster="film.poster_path"
@@ -34,6 +35,21 @@ import { store } from '../store';
                 :originalName="film.original_title"
                 :gender="'movie'"
                 />
+
+                <SingleFilms
+                class="col-md-2"
+                v-for="(film, i) in store.trendsTv"
+                :key="i" 
+                :film="film"
+                :poster="film.poster_path"
+                :name="film.name"
+                :originalName="film.original_name"
+                :gender="'movie'"
+                />
+
+            </div>
+
+            <div class="row flex-wrap ">
 
                 <SingleFilms
                 class="col-md-2"

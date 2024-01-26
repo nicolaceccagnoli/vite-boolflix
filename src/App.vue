@@ -75,7 +75,11 @@ export default {
 
                 this.store.tvSeries = [];
 
-                this.store.trends = [];
+                this.store.trendsTv = [];
+
+                this.store.trendsFilm = [];
+
+
             }
 
             },
@@ -83,12 +87,30 @@ export default {
         trendApiCall() {
             // Richiamo l'API per cercare i trend
             axios
-            .get(this.store.baseTrendUrl)
+            .get(this.store.baseTrendFilmUrl)
             .then((response) => {
                 console.log(response.data.results);
                 for (let i = 0; i < response.data.results.length; i++) {
                     // Creo un ciclo per ogni singolo oggetto Trend all'interno dell'oggetto principale
-                    this.store.trends = response.data.results;
+                    this.store.trendsFilm = response.data.results;
+                }
+                console.log('Questi sono i trend: ', this.store.trends);
+
+            })
+            .catch((error) => {
+                this.store.trendsFilm = [];
+            })
+            .finally(() => {
+                console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
+            });
+
+            axios
+            .get(this.store.baseTrendTvUrl)
+            .then((response) => {
+                console.log(response.data.results);
+                for (let i = 0; i < response.data.results.length; i++) {
+                    // Creo un ciclo per ogni singolo oggetto Trend all'interno dell'oggetto principale
+                    this.store.trendsTv = response.data.results;
                 }
                 console.log('Questi sono i trend: ', this.store.trends);
 
@@ -99,15 +121,11 @@ export default {
 
             })
             .catch((error) => {
-                this.store.trends = [];
+                this.store.trendsTv = [];
             })
             .finally(() => {
                 console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
             });
-
-            // axios
-            // .get(this.store.baseCreditMovieUrl)
-
 
         }
     },

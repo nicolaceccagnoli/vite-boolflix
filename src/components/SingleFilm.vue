@@ -111,13 +111,14 @@ import axios from 'axios';
                 class="film-img"
                 :src="'https://image.tmdb.org/t/p/w342' + film.poster_path"
                 :alt="name">
-                <img v-else class="film-img" src="/public/immagine-mancante.png" alt="">
+                <img v-else class="film-img" src="/public/immagine-mancante.webp" alt="">
                 <!-- Qui iniziano le info delle Card -->
                 <div class="film-card-body">
                     <ul>
                         <li>
+                            Titolo:
                             <h4 class="card-title mb-3">
-                            Titolo: {{ name }}
+                             {{ name }}
                             </h4>
                         </li>
                         <li class="mb-3">
@@ -205,20 +206,31 @@ import axios from 'axios';
 
                     li {
                         margin-bottom: 10px;
+                        color: $main-color-info-text;
+
 
                         > i {
                             color: $stars-color;
                         }
 
+                        h4, h6 {
+                            color: white;
+                        }
+
                     }
                     .show-credits {
-                        color: #676767;
+                        color: $main-color-info-text;
 
                         >li {
+                            margin-top: 5px;
                             margin-left: 20px;
                             list-style: circle;
                             color: white;
                         }
+                    }
+
+                    .vote-lang-info {
+                        color: $main-color-info-text;
                     }
 
                     .lang-flag {
