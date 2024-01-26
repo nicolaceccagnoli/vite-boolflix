@@ -67,6 +67,8 @@ import axios from 'axios';
             },
             searchGender(selectedValue) {
 
+                // Applico un controllo per cui se un elemento è già presente nell'array non lo pusha, se è già presente lo toglie
+
                 if (!this.store.selectGenres.includes(selectedValue) || this.store.selectGenres.length === 0) {
                     this.store.selectGenres.push(selectedValue);
                 } else {
@@ -76,13 +78,8 @@ import axios from 'axios';
 
                 console.log(this.store.selectGenres);
 
-
-                
-
+                // Una volta scelto un genere allora la lista scompare nuovamente
                 this.showGenreList = false;
-
-
-
 
             }
             
