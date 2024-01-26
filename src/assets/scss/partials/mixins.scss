@@ -8,7 +8,6 @@
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: $header-bg-color;
 }
 
 /*
@@ -29,7 +28,7 @@
 }
 
 @mixin film-card-body {
-    // width: 100%;
+    width: 100%;
     object-fit: cover;
     height: 100%;
     display: none;
@@ -63,6 +62,7 @@
 
     ::-webkit-scrollbar-thumb {
         background-color: $scrollbar-thumb-bg;
+        border-radius: 5px;
     }
 
     ::-webkit-scrollbar-track {

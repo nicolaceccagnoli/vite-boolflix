@@ -66,7 +66,7 @@ import { store } from '../store';
 @import '../assets/scss/partials/variables.scss';
 
 main {
-    height: 100%;
+    min-height: calc(100vh - 100px);
     background-color: $main-bg-color;
 }
 

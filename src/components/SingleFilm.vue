@@ -7,7 +7,9 @@ import axios from 'axios';
             return {
                 store,
                 // Creo un Array per i Credits
-                credits: []
+                credits: [],
+                // Creo una Flag per i Credits
+                showCredits: false
 
             };
         },
@@ -52,21 +54,32 @@ import axios from 'axios';
                 get('https://api.themoviedb.org/3/' + this.gender + '/' + this.film.id + '/credits?api_key=82426cbd7a1ce54b563c262757bd3dc3')
                 .then((response) => {
 
-                    console.log(response.data.cast);
+                    console.log('Questo è il CONSOLE.LOG DEI DATI: ',response);
 
                     for (let j = 0; j < 5; j++) {
                         this.credits.push(response.data.cast[j].name);
+
+                        if (response.data.cast[j].length == 0) {
+                            console.log('QUI NON TROVO IL CAST')
+                            // response.data.cast[j].name = 'Cast Non Disponibile';
+                            // this.credits.push(response.data.cast[j].name);
+                        }
+
                     }
 
-                    console.log(this.credits);
+
+                    console.log('Questi sono i CREDITS: ',this.credits);
 
                 })
                 .catch((error) => {
                     this.credits = [];
+                    this.credits.name = 'Attori non trovati';
                 })
                 .finally(() => {
                     console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
                 });
+
+                this.showCredits = true
 
             }
 
@@ -91,7 +104,7 @@ import axios from 'axios';
 
 <template>
         <!-- Qui Inizia il contenitore delle Card del Film o Serie TV -->
-        <div @click="getCreditsApi()" class="film-info">
+        <div class="film-info">
             <!-- Qui inizia il contenuto delle Card -->
             <div class="film-card">
                 <img v-if="film.poster_path != null"
@@ -113,11 +126,30 @@ import axios from 'axios';
                                 {{ originalName }}
                             </h6>
                         </li>
-                        <li class="list-overview mb-1">
+                        <li v-if="showCredits == false" class="list-overview mb-1">
                             <p>
                                 {{ film.overview }}
                             </p>
                         </li>
+                        <button 
+                        class="btn btn-outline-secondary"
+                        v-if="showCredits == false"
+                        @click="getCreditsApi()"
+                        href="#nogo">
+                            <i class="fa-solid fa-circle-chevron-down">
+                                Show Cast
+                            </i>
+                        </button>
+                        <div
+                        v-if="showCredits == true"
+                        class="show-credits">
+                        Cast:
+                            <li
+                            v-for="(name, i) in credits"
+                            :key="i">
+                                    {{ name }}
+                            </li>
+                        </div>
                         <div class="vote-lang-info z-1">
                             <li>
                                 Lingua: 
@@ -135,14 +167,6 @@ import axios from 'axios';
                                 }"
                                 class="fa-star"></i>
                             </li>
-                        </div>
-                        <div>
-                            <ul>
-                                <li v-for="(name, i) in credits"
-                                :key="i">
-                                    {{ name }}
-                                </li>
-                            </ul>                 
                         </div>
                     </ul> 
                 </div>
@@ -164,6 +188,7 @@ import axios from 'axios';
         .film-card {
             @include film-card;
             position: relative;
+            overflow: hidden;
 
             .film-img {
                 @include film-img;
@@ -172,10 +197,11 @@ import axios from 'axios';
                 @include film-card-body;
                 position: absolute;
                 top: 0;
+                overflow: auto;
+                background-color: $list-bg-color;
 
                 ul {
                     @include ul;
-                    background-color: $list-bg-color;
 
                     li {
                         margin-bottom: 10px;
@@ -183,17 +209,18 @@ import axios from 'axios';
                         > i {
                             color: $stars-color;
                         }
+
+                    }
+                    .show-credits {
+                        color: #676767;
+
+                        >li {
+                            margin-left: 20px;
+                            list-style: circle;
+                            color: white;
+                        }
                     }
 
-                    .list-overview {
-                        height: $list-overview-height;
-                        overflow: auto;
-                    }
-
-                    .vote-lang-info {
-                        position: absolute;
-                        bottom: 0;
-                    } 
                     .lang-flag {
                     width: $lang-flag-width;
                     }

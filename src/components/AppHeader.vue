@@ -58,6 +58,10 @@ import { store } from '../store';
 
 header {
 
+    >div {
+        height: 100px
+    }
+
     @include header;
 
     background-color: $header-bg-color;
