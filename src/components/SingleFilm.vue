@@ -8,11 +8,8 @@ import axios from 'axios';
                 store,
                 // Creo un Array per i Credits
                 credits: [],
-                // Creo un Array per i Generi
-                genresIds: [],
                 // Creo una Flag per i Credits
                 showCredits: false
-
             };
         },
         methods: {
@@ -80,6 +77,8 @@ import axios from 'axios';
                     console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
                 });
 
+                this.store.genresIds = [];
+
                 // Richiamo le API per trovare i Generi
                 axios
                 .get('https://api.themoviedb.org/3/' + this.gender + '/' + this.film.id + '?api_key=82426cbd7a1ce54b563c262757bd3dc3')
@@ -88,14 +87,14 @@ import axios from 'axios';
 
                     // Creo un ciclo per pushare nell'Array dei Generi quelli resituiti dall'oggetto principale
                     for (let y = 0; y < response.data.genres.length; y++) {
-                        this.genresIds.push(response.data.genres[y].name);
+                        this.store.genresIds.push(response.data.genres[y].name);
                     }
 
-                    console.log('Questi sono i generi: ', this.genresIds);
+                    console.log('Questi sono i generi: ', this.store.genresIds);
                 })
                 .catch((error) => {
-                    this.genresIds = [];
-                    this.genresIds.name = 'Generi non disponibili';
+                    this.store.genresIds = [];
+                    this.store.genresIds.name = 'Generi non disponibili';
                 })
                 .finally(() => {
                     console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
@@ -104,31 +103,31 @@ import axios from 'axios';
                 // Cambio il valore della Flag che gestisce la visualizzazione dell'Overview
                 this.showCredits = true
 
-            }
-
-
+            },
         }, 
         props: {
             film: Object,
             name: String,
             originalName: String,
             gender: String,
-            filmGenres: String
+            filmGenres: String,
+        },
+        created() {
         },
         mounted() {
             // Richiamo la funzione per le stringhe quando il componente viene montato
             this.langFlagControl();
         },
         computed: {
-
         }
-
     }
+
 </script>
 
 <template>
         <!-- Qui Inizia il contenitore delle Card del Film o Serie TV -->
-        <div class="film-info">
+        <div 
+        class="film-info">
             <!-- Qui inizia il contenuto delle Card -->
             <div class="film-card">
                 <img v-if="film.poster_path != null"
@@ -179,7 +178,8 @@ import axios from 'axios';
                         Generi: 
                             <li
                             class="text-white"
-                            v-for="(singleGenre, i) in genresIds"
+                            :data-value="singleGenre" 
+                            v-for="(singleGenre, i) in store.genresIds"
                             :key="i">
                                 {{ singleGenre }}
                             </li>

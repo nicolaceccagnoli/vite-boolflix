@@ -179,8 +179,6 @@ export default {
 }
 </script>
 
-@searchGender="searchGender()" 
-
 <template>
     <AppHeader @performSearch="getApiCall()"/>
 

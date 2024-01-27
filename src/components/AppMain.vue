@@ -9,7 +9,7 @@ import { store } from '../store';
             };
         },
         methods: {
-
+            
         },
         components: {
             SingleFilms,
@@ -67,6 +67,15 @@ import { store } from '../store';
 
             <div class="row flex-wrap ">
 
+                <div
+                v-show="store.trendsFilm.length == 0"
+                class="trend-title col-12 mb-3">
+                    <h3>
+                        Ecco i Film trovati: 
+                    </h3>
+                </div>
+
+
                 <SingleFilms
                 class="col-md-2"
                 v-for="(film, i) in store.films"
@@ -77,6 +86,15 @@ import { store } from '../store';
                 :originalName="film.original_title"
                 :gender="'movie'"
                 />
+
+                <div 
+                v-show="store.trendsTv.length == 0"
+                class="trend-title col-12 mb-3">
+                    <h3>
+                        Ecco le Serie TV trovate:
+                    </h3>
+                </div>
+
 
                 <SingleFilms
                 class="col-md-2"

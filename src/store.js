@@ -29,6 +29,8 @@ export const store = reactive ({
     // Creo un Array unico dove pushare tutti i generi
     genresTvAndFilm: [],
     // Creo un Array vuoto dove pushare le option della select
-    selectGenres: []
+    selectGenres: [],
+    // Creo un Array per i Generi dei SingleFIlm
+    genresIds: [],
 
 })
