@@ -52,7 +52,7 @@ import axios from 'axios';
                 this.credits = [];
 
                 // Svuoto l'Array dei Generi
-                this.genresIds = [];
+                this.store.genresIds = [];
 
                 // Richiamo le API per trovare gli Attori
                 axios.
@@ -77,8 +77,6 @@ import axios from 'axios';
                     console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
                 });
 
-                this.store.genresIds = [];
-
                 // Richiamo le API per trovare i Generi
                 axios
                 .get('https://api.themoviedb.org/3/' + this.gender + '/' + this.film.id + '?api_key=82426cbd7a1ce54b563c262757bd3dc3')
@@ -102,7 +100,6 @@ import axios from 'axios';
 
                 // Cambio il valore della Flag che gestisce la visualizzazione dell'Overview
                 this.showCredits = true
-
             },
         }, 
         props: {
@@ -111,6 +108,7 @@ import axios from 'axios';
             originalName: String,
             gender: String,
             filmGenres: String,
+            singleGenre: String
         },
         created() {
         },

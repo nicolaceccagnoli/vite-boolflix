@@ -125,49 +125,6 @@ export default {
             .finally(() => {
                 console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
             });
-        },
-        getGenresApiCall() {
-            // Richiamo l'API per cercare i generi dei Film
-            axios
-            .get(this.store.baseGenresFilmUrl)
-            .then((response) => {
-                console.log('Questa è la chiamata dei GENERI FILM: ',response.data.genres)
-                    // Creo un ciclo per ogni singolo oggetto Genere all'interno dell'oggetto principale
-                    for (let x = 0; x < response.data.genres.length; x++) {
-                    this.store.genresTvAndFilm.push(response.data.genres[x].name);
-                }
-                console.log('ARRAY DEI GENERI solo con i FILM: ', this.store.genresTvAndFilm);
-            })
-            .catch((error) => {
-                this.store.genresTvAndFilm = [];
-            })
-            .finally(() => {
-                console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
-            });
-
-            // Richiamo l'API per cercare i generi delle Serie TV
-            axios
-            .get(this.store.baseGenresTvUrl)
-            .then((response) => {
-                console.log('Questa è la chiamata dei GENERI SERIE TV: ',response.data.genres)
-                    // Creo un ciclo per ogni singolo oggetto Genere all'interno dell'oggetto principale
-                    for (let x = 0; x < response.data.genres.length; x++) {
-
-                        // Applico un controllo per cui se uno dei Generi è già presente nella lista allora non viene pushato
-                        if (!this.store.genresTvAndFilm.includes(response.data.genres[x].name)) {
-                            this.store.genresTvAndFilm.push(response.data.genres[x].name);
-                        }
-                    
-                }
-                console.log('ARRAY DEI GENERI solo con le SERIE TV: ', this.store.genresTvAndFilm);
-
-            })
-            .catch((error) => {
-                this.store.genresTv = [];
-            })
-            .finally(() => {
-                console.log('Questo console.log viene eseguito sempre alla fine della chiamata API');
-            });
             
         },
     },
