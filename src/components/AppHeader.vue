@@ -17,6 +17,7 @@ import axios from 'axios';
             showSearchBar(){
                 this.search = true;
             },
+            // Creo una funzione che mostri la lista dei Generi
             toggleGenreList() {
                 this.showGenreList = !this.showGenreList;
             },
@@ -72,6 +73,7 @@ import axios from 'axios';
                 if (!this.store.selectGenres.includes(selectedValue) || this.store.selectGenres.length === 0) {
                     this.store.selectGenres.push(selectedValue);
                 } else {
+                    // Dichiaro una Variabile che farà corrispondere l'elemento già presente all'interno di selectGenres al suo stesso indice 
                     const elem = this.store.selectGenres.indexOf(selectedValue);
                     this.store.selectGenres.splice(elem, 1);
                 }
@@ -87,7 +89,6 @@ import axios from 'axios';
         mounted() {
             this.getGenresApiCall();
         },
-
     }
 </script>
 
@@ -104,7 +105,9 @@ import axios from 'axios';
             <div class="col-auto d-flex align-items-center">
 
                 <div class="genres-list me-2">
-                    <button @click="toggleGenreList" class="btn-outline-secondary"
+                    <button 
+                    @click="toggleGenreList"
+                    class="btn-outline-secondary"
                     id="genres">
                         Filtra per genere
                     </button>
@@ -127,8 +130,15 @@ import axios from 'axios';
                     <button @click="showSearchBar()" v-show="search == false" class="btn btn-outline-secondary text-white">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
-                    <input v-show="search == true" v-model="store.searchFilm" type="text" placeholder="Search Film" aria-label="Search Film" aria-describedby="button-addon2" class="form-control me-2">
-                    <button v-show="search == true" class="text-white btn btn-outline-secondary" type="submit" id="button-addon2">
+                    <input
+                    v-show="search == true"
+                    v-model="store.searchFilm" 
+                    type="text" placeholder="Search Film" aria-label="Search Film" aria-describedby="button-addon2" 
+                    class="input-search form-control me-2">
+                    <button
+                    v-show="search == true" 
+                    class="text-white btn btn-outline-secondary" type="submit" 
+                    id="button-addon2">
                         Search
                     </button>
                 </form>
@@ -148,6 +158,15 @@ header {
     > div {
         height: $header-hg;
 
+        .input-search {
+            background-color: rgba(0, 0, 0, 0.8); 
+            color: white; 
+        }
+
+        .input-search::placeholder {
+            color: white; 
+        }
+
         .genres-list {
             position: relative;
         }
@@ -166,6 +185,8 @@ header {
             margin: 0;
             padding: 0;
             width: 100%;
+            max-height: 400px;
+            overflow: auto;
         }
 
         .genres-list ul li:hover {
