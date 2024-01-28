@@ -78,7 +78,7 @@ import { store } from '../store';
 
                 <SingleFilms
                 class="col-md-2"
-                v-for="(film, i) in store.films"
+                v-for="(film, i) in store.tempFilmArray"
                 :key="i" 
                 :film="film"
                 :poster="film.poster_path"
@@ -98,7 +98,7 @@ import { store } from '../store';
 
                 <SingleFilms
                 class="col-md-2"
-                v-for="(film, i) in store.tvSeries"
+                v-for="(film, i) in store.tempTvArray"
                 :key="i" 
                 :film="film"
                 :poster="film.poster_path"
@@ -115,16 +115,14 @@ import { store } from '../store';
 
 <style lang="scss" scoped>
 @import '../assets/scss/partials/variables.scss';
+@import '../assets/scss/partials/mixins.scss';
 
 main {
     min-height: calc(100vh - 100px);
     background-color: $main-bg-color;
 
     .trend-title {
-        width: 100%;
-        color: white;
-        font-size: 18px;
-        margin-top: 20px; 
+        @include trend-title;
     }
 }
 </style>

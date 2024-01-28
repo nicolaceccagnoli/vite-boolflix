@@ -30,10 +30,13 @@ export default {
                 .then((response) => {
                     console.log('ARRAY DEI FILM: ',response.data.results);
 
-                    // Creo un ciclo per ogni singolo oggetto Film all'interno dell'oggetto principale
-                    for (let i = 0; i < response.data.results.length; i++) {
+                        // Assegno la risposta dell'API all'Array dei films
                         this.store.films = response.data.results;
-                    }
+
+                        // Allo stesso tempo Assegno la risposta dell'API all'Array temporaneo dei films
+                        this.store.tempFilmArray = response.data.results;
+
+
                     console.log(this.store.films);
 
                 })
@@ -55,10 +58,12 @@ export default {
                 .then((response) => {
                     console.log('ARRAY DELLE SERIE: ', response.data.results);
 
-                    // Creo un ciclo per ogni singolo oggetto Serie all'interno dell'oggetto principale
-                    for (let i = 0; i < response.data.results.length; i++) {
+                        // Assegno la risposta dell'API all'Array delle Serie TV
                         this.store.tvSeries = response.data.results;
-                    }
+
+                        // Assegno la risposta dell'API all'Array temporaneo delle Serie TV
+                        this.store.tempTvArray = response.data.results;
+
                     console.log(this.store.tvSeries);
                 })
                 .catch((error) => {

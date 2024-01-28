@@ -10,6 +10,41 @@
     z-index: 1;
 }
 
+@mixin input-search {
+    background-color: rgba(0, 0, 0, 0.8); 
+    color: white; 
+}
+
+@mixin genres {
+    background-color: rgba(0, 0, 0, 0.8); 
+    color: $main-input-color; 
+    padding: 8px; 
+    width: 200px;
+}
+
+@mixin genres-list-ul {
+    top: 100%;
+    left: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-height: 400px;
+    overflow: auto;
+
+}
+
+@mixin genres-list-li-hover {
+    background-color: rgba(190, 2, 2, 0.785);
+    color: $main-input-color;
+    cursor: pointer;
+}
+
+@mixin genres-list-active {
+    background-color: rgba(15, 14, 14, 0.785);
+    color: rgb(190, 2, 2);
+}
+
 /*
 
     SINGLE FILMS
@@ -41,6 +76,18 @@
     color: white;
 }
 
+@mixin important-tag-font {
+    color: white;
+    margin-bottom: 10px;
+}
+
+@mixin single-film-li {
+    margin-top: 5px;
+    margin-left: 20px;
+    list-style: circle;
+    color: white;
+}
+
 @mixin film-info-hover {
     box-shadow: 0px -1px 17px 28px #000000;
     transform:rotateY(-360deg);
@@ -69,4 +116,11 @@
         background-color: $scrollbar-track-bg;
     }
 
+}
+
+@mixin trend-title {
+    width: 100%;
+    color: white;
+    font-size: 18px;
+    margin-top: 20px; 
 }

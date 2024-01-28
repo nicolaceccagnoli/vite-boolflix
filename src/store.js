@@ -32,5 +32,8 @@ export const store = reactive ({
     selectGenres: [],
     // Creo un Array per i Generi dei SingleFIlm
     genresIds: [],
-
+    // Dichiaro un Array temporaneo dove salvare i Film che filtro
+    tempFilmArray: [],
+    // Dichiaro un Array temporaneo dove salvare le Serie TV che filtro
+    tempTvArray: []
 })

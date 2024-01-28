@@ -9,7 +9,7 @@ import axios from 'axios';
                 // Creo un Array per i Credits
                 credits: [],
                 // Creo una Flag per i Credits
-                showCredits: false
+                showCredits: false,
             };
         },
         methods: {
@@ -82,13 +82,14 @@ import axios from 'axios';
                 .get('https://api.themoviedb.org/3/' + this.gender + '/' + this.film.id + '?api_key=82426cbd7a1ce54b563c262757bd3dc3')
                 .then((response) => {
                     console.log(response.data.genres);
-
                     // Creo un ciclo per pushare nell'Array dei Generi quelli resituiti dall'oggetto principale
                     for (let y = 0; y < response.data.genres.length; y++) {
-                        this.store.genresIds.push(response.data.genres[y].name);
-                    }
-
-                    console.log('Questi sono i generi: ', this.store.genresIds);
+                            this.store.genresIds.push(response.data.genres[y]);
+                        }
+                        
+                    console.log('Questi sono i generi DEL SINGOLO FILM: ', this.store.genresIds);
+                    
+                    console.log('Questà è SINGOLO FILM', this.film)
                 })
                 .catch((error) => {
                     this.store.genresIds = [];
@@ -110,8 +111,6 @@ import axios from 'axios';
             filmGenres: String,
             singleGenre: String
         },
-        created() {
-        },
         mounted() {
             // Richiamo la funzione per le stringhe quando il componente viene montato
             this.langFlagControl();
@@ -124,7 +123,7 @@ import axios from 'axios';
 
 <template>
         <!-- Qui Inizia il contenitore delle Card del Film o Serie TV -->
-        <div 
+        <div
         class="film-info">
             <!-- Qui inizia il contenuto delle Card -->
             <div class="film-card">
@@ -132,7 +131,7 @@ import axios from 'axios';
                 class="film-img"
                 :src="'https://image.tmdb.org/t/p/w342' + film.poster_path"
                 :alt="name">
-                <img v-else class="film-img" src="/public/immagine-mancante.webp" alt="">
+                <img v-else class="film-img" src="/public/immagine-mancante.webp" alt="Immagine Mancante">
                 <!-- Qui iniziano le info delle Card -->
                 <div class="film-card-body">
                     <ul>
@@ -179,7 +178,7 @@ import axios from 'axios';
                             :data-value="singleGenre" 
                             v-for="(singleGenre, i) in store.genresIds"
                             :key="i">
-                                {{ singleGenre }}
+                                {{ singleGenre.name }}
                             </li>
                         </div>
                         <div class="vote-lang-info z-1">
@@ -246,8 +245,7 @@ import axios from 'axios';
                         }
 
                         h4, h6, p{
-                            color: white;
-                            margin-bottom: 10px;
+                            @include important-tag-font;
                         }
 
                     }
@@ -255,10 +253,7 @@ import axios from 'axios';
                         color: $main-color-info-text;
 
                         >li {
-                            margin-top: 5px;
-                            margin-left: 20px;
-                            list-style: circle;
-                            color: white;
+                           @include single-film-li;
                         }
                     }
 

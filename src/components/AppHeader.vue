@@ -9,7 +9,9 @@ import axios from 'axios';
                 // Creo una flag per la Search Bar
                 search: false,
                 // Creo una flag per la lista dei Generi
-                showGenreList: false
+                showGenreList: false,
+                // Creo una flag per la classe da assegnare al genere selezionato 
+                active: false
             };
         },
         methods: {
@@ -28,10 +30,8 @@ import axios from 'axios';
                 .get(this.store.baseGenresFilmUrl)
                 .then((response) => {
                     console.log('Questa è la chiamata dei GENERI FILM: ',response.data.genres)
-                        // Creo un ciclo per ogni singolo oggetto Genere all'interno dell'oggetto principale
-                        for (let x = 0; x < response.data.genres.length; x++) {
-                        this.store.genresTvAndFilm.push(response.data.genres[x].name);
-                    }
+                    // Creo un ciclo per ogni singolo oggetto Genere all'interno dell'oggetto principale
+                    this.store.genresTvAndFilm = response.data.genres;
                     console.log('ARRAY DEI GENERI solo con i FILM: ', this.store.genresTvAndFilm);
                 })
                 .catch((error) => {
@@ -50,12 +50,11 @@ import axios from 'axios';
                         for (let x = 0; x < response.data.genres.length; x++) {
 
                             // Applico un controllo per cui se uno dei Generi è già presente nella lista allora non viene pushato
-                            if (!this.store.genresTvAndFilm.includes(response.data.genres[x].name)) {
-                                this.store.genresTvAndFilm.push(response.data.genres[x].name);
+                            if (!this.store.genresTvAndFilm.includes(response.data.genres[x])) {
+                                this.store.genresTvAndFilm.push(response.data.genres[x]);
                             }
-                        
                     }
-                    console.log('ARRAY DEI GENERI solo con le SERIE TV: ', this.store.genresTvAndFilm);
+                    console.log('ARRAY DEI GENERI COMPLETO: ', this.store.genresTvAndFilm);
 
                 })
                 .catch((error) => {
@@ -66,24 +65,64 @@ import axios from 'axios';
                 });
 
             },
-            searchGender(selectedValue) {
+            searchGenres(selectedValue) {
 
                 // Applico un controllo per cui se un elemento è già presente nell'array non lo pusha, se è già presente lo toglie
-
-                if (!this.store.selectGenres.includes(selectedValue) || this.store.selectGenres.length === 0) {
+                if (!this.store.selectGenres.includes(selectedValue)) {
                     this.store.selectGenres.push(selectedValue);
+
                 } else {
                     // Dichiaro una Variabile che farà corrispondere l'elemento già presente all'interno di selectGenres al suo stesso indice 
                     const elem = this.store.selectGenres.indexOf(selectedValue);
                     this.store.selectGenres.splice(elem, 1);
                 }
 
+                // Ogni volta che cerco un nuovo genere dichiaro l'Array temporaneo dei Film vuoto
+                this.store.tempFilmArray = [];
+
+                // Ogni volta che cerco un nuovo genere dichiaro l'Array temporaneo delle Serie TV vuoto
+                this.store.tempTvArray = [];
+
+                // Dichiaro una funzione che mi servirà per effettuare un controllo tra 2 array
+                const isSubset = (array1, array2) =>
+                    array2.every((element) => array1.includes(element));
+
+                // Creo un ciclo for (shortcut) per ciclare su ogni singolo film dell'Array films 
+                for (let film of this.store.films) {
+
+                        // Se l'ID dei generi di ogni singolo film corrisponde all'ID del genere selezionato 
+                        if (isSubset(film.genre_ids, this.store.selectGenres)) {
+
+                            // Allora quel film viene aggiunto all'Array temporaneo dei film
+                            this.store.tempFilmArray.push(film)
+
+                        } 
+
+                    console.log('ID DEI GENERI:' , film.genre_ids);
+
+                }
+
+                console.log('Generi selezionati:', this.store.selectGenres);
+
                 console.log(this.store.selectGenres);
+
+                // Creo un ciclo for (shortcut) per ciclare su ogni singola serie dell'Array tvSeries 
+                for (let series of this.store.tvSeries) {
+
+                    // Se l'ID dei generi di ogni singola serie TV corrisponde all'ID del genere selezionato 
+                    if (isSubset(series.genre_ids, this.store.selectGenres)) {
+
+                            // Allora quella serie TV viene aggiunto all'Array temporaneo delle Serie TV
+                            this.store.tempTvArray.push(series)
+
+                    } 
+
+                }
 
                 // Una volta scelto un genere allora la lista scompare nuovamente
                 this.showGenreList = false;
 
-            }
+            },
             
         },
         mounted() {
@@ -116,12 +155,15 @@ import axios from 'axios';
                     v-if="showGenreList"
                     class="list-group">
                         <li 
-                        @click="searchGender(singleGenre)"
+                        @click="searchGenres(singleGenre.id)"
                         v-for="(singleGenre, i) in store.genresTvAndFilm" 
                         :key="i" 
                         :data-value="singleGenre"
+                        :class="{
+                            'active' : this.store.selectGenres.includes(singleGenre.id)
+                        }"
                         class="list-group-item">
-                            {{ singleGenre }}
+                            {{ singleGenre.name }}
                         </li>
                     </ul>
                 </div>
@@ -159,12 +201,11 @@ header {
         height: $header-hg;
 
         .input-search {
-            background-color: rgba(0, 0, 0, 0.8); 
-            color: white; 
+            @include input-search;
         }
 
         .input-search::placeholder {
-            color: white; 
+            color: $main-input-color; 
         }
 
         .genres-list {
@@ -172,29 +213,20 @@ header {
         }
 
         #genres {
-            background-color: rgba(0, 0, 0, 0.8); 
-            color: white; 
-            padding: 8px; 
-            width: 200px;
+            @include genres;
         }
         .genres-list ul {
+            @include genres-list-ul;
             position: absolute;
-            top: 100%;
-            left: 0;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            max-height: 400px;
-            overflow: auto;
         }
 
         .genres-list ul li:hover {
-            background-color: rgba(190, 2, 2, 0.785);
-            color: white;
-            cursor: pointer;
+            @include genres-list-li-hover;
         }
 
+        .active {
+            @include genres-list-active;
+        }
 
     }
 
