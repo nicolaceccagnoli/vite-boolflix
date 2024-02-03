@@ -23,7 +23,7 @@ import { store } from '../store';
     <main>
         <div class="container-fluid p-2">
 
-            <div class="row flex-wrap ">
+            <div class="row g-0 flex-wrap ">
 
                 <div
                 v-show="store.trendsFilm.length > 0"
@@ -65,7 +65,7 @@ import { store } from '../store';
 
             </div>
 
-            <div class="row flex-wrap ">
+            <div class="row g-0 flex-wrap ">
 
                 <div
                 v-show="store.trendsFilm.length == 0"
